@@ -1,33 +1,31 @@
+'use client'
 import {onAuthStateChanged, signOut} from 'firebase/auth';
 import {auth} from './firebase';
-import { useState, useEffect } from 'react';
-import SignUp from "./signup/page";
-import SignIn from "./signin/page";
+import { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux'
+import { setProducts } from '@/store/products';
+import { RootState } from '@/store';
+import axios from 'axios';
 
 const styles = {
-  main: 'flex min-h-screen flex-col items-center justify-between p-24'
+  main: 'flex min-h-screen flex-col items-center justify-between border'
 }
 export default function Home() {
-  // const [currentUser, setCurrentUser] = useState(null);
+  const {products} = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch();
 
+  const getProducts = async () => {
+    const {data} = await axios('https://dummyjson.com/products')
+     dispatch(setProducts(data.products));
+  }
 
-    // useEffect(() => {
-    //     const listen = onAuthStateChanged(auth, (user) => {
-    //         if(user) {
-    //             setCurrentUser(user)
-    //         } else {
-    //             setCurrentUser(null);
-    //         }
-    //     })
-    //     return () => {
-    //         listen();
-    //     }
-    // }, [])
+  useEffect(() => {
+    getProducts();
+  }, [])
   return (
     <main className={styles.main}>
-      {/* <SignUp/> */}
-      {/* <SignIn/> */}
-      {/* <h1>Hello</h1> */}
+        <h1>See Products</h1>
+ 
     </main>
   )
 }
