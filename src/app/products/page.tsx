@@ -11,7 +11,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const styles = {
     main: 'flex min-h-screen flex-col justify-center items-center p-16',
     header: 'text-5xl mb-12',
-    productsWrapper: 'w-9/12 items-center border',
+    productsWrapper: 'w-10/12',
 }
 
 const Products = () => {
@@ -38,7 +38,7 @@ const handleNext = () => {
                 hasMore={hasMore}
                 loader={<h2>Loading...</h2>}
                 endMessage={<h2>No more products left</h2>}
-                className='flex flex-wrap'
+                className='flex flex-wrap justify-center items-center'
             >
         {products.length > 0 &&
              products.map((item) => (

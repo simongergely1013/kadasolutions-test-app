@@ -12,9 +12,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const styles = {
     main: 'flex min-h-screen flex-col items-center p-16',
     header: 'text-5xl mb-12',
-    cartWrapper: 'w-9/12 flex flex-wrap justify-around items-center mb-12 border',
+    cartWrapper: 'w-10/12 flex flex-wrap justify-center items-center mb-12',
     buttonContainer: 'flex justify-center items-center gap-4',
-    button: 'w-64 h-14 text-lg font-semibold rounded-3xl border'
+    button: 'w-64 h-14 bg-[#6100FF] text-white text-lg font-semibold rounded-3xl border'
 }
 
 const Cart = () => {
@@ -52,6 +52,18 @@ const Cart = () => {
 
     const handleClearCart = () => {
         dispatch(clearCart());
+        toast.info('Cart cleared.', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
+
     }
 
     useEffect(() => {
