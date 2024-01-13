@@ -8,7 +8,7 @@ const styles = {
 
 export const renderStars = (rating: number | null) => {
     if(rating !== null){
-        const roundedRating = Math.round(rating);
+        const roundedRating = Math.floor(rating);
         switch(roundedRating){
             case 5:
             return (
