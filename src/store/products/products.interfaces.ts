@@ -16,4 +16,5 @@ export interface ProductsState {
     products: Array<Product>;
     isLoading: boolean;
     isError: boolean;
+    hasMore: boolean;
 }

@@ -5,13 +5,14 @@ import axios from 'axios';
 const initialState: ProductsState = {
     products: [],
     isLoading: false,
-    isError: false
+    isError: false,
+    hasMore: true
 };
 
 export const fetchProductsData = createAsyncThunk(
     'products/getProductsData',
-    async () => {
-        const {data} = await axios('https://dummyjson.com/products');
+    async (limit: number) => {
+        const {data} = await axios(`https://dummyjson.com/products?limit=${limit}`);
         return data.products;
     }
 )
@@ -24,15 +25,18 @@ const products = createSlice({
         builder.addCase(fetchProductsData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
+            state.hasMore = true;
         });
         builder.addCase(fetchProductsData.fulfilled, (state, action: PayloadAction<Array<Product>>) => {
             state.isLoading = false;
             state.isError = false;
             state.products = action.payload;
+            state.hasMore = true;
         });
         builder.addCase(fetchProductsData.rejected, (state, action) => {
             state.isError = true;
             state.isLoading = false;
+            state.hasMore = false;
         })
     }
 })
