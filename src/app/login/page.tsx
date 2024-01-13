@@ -10,12 +10,12 @@ import React, {useState, useEffect} from "react";
 import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
-    wrapper: 'border w-full min-h-screen flex justify-center pt-4',
-    form: 'border w-1/2 flex flex-col items-center',
-    header: 'text-2xl p-6',
-    inputDiv: 'w-1/3 flex flex-col gap-4 text-black mb-4',
-    input: 'p-2',
-    button: 'w-1/3 bg-white text-black p-2 rounded'
+    main: 'flex min-h-screen flex-col items-center p-16',
+    form: 'w-1/2 flex flex-col items-center',
+    header: 'text-3xl font-semibold mb-12',
+    inputDiv: 'w-1/3 flex flex-col gap-4 text-black mb-8',
+    input: 'p-2 border border-black rounded',
+    button: 'w-64 h-12 bg-black text-white text-lg font-semibold rounded-3xl border'
 }
 
 const LogIn = () => {
@@ -41,8 +41,28 @@ const LogIn = () => {
                 theme: "light",
                 transition: Bounce,
                 });
+            setEmail('');
+            setPassword('');    
+            setTimeout(() => {
+                router.push('/products');
+            }, 5500);    
         } )
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error)
+            toast.error('Invalid email or password', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+            setEmail('');
+            setPassword(''); 
+        })
     }
 
     const handleLogOut = () => {
@@ -59,9 +79,22 @@ const LogIn = () => {
                 progress: undefined,
                 theme: "light",
                 transition: Bounce,
-                }); 
+                });   
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error)
+            toast.error('Something went wrong', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+        })
       }
 
       useEffect(() => {
@@ -78,7 +111,7 @@ const LogIn = () => {
     }, [])
     return(
         <>
-        <div className={styles.wrapper}>
+        <div className={styles.main}>
             {currentUser !== null ? 
             <div className='w-1/2 flex flex-col items-center gap-4'>
              <h1 className={styles.header}>{`Logged in as ${currentUser.email}`}</h1>

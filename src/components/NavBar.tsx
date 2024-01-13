@@ -33,7 +33,7 @@ const NavBar = () => {
     return(
         <div className={styles.main}>
             <div className={styles.leftSide}>
-            <Link href={"/"}>Home</Link>
+            <Link href={"/"}>Products</Link>
             <Link href={"/signup"}>Sign Up</Link>
             <Link href={"/login"}>{currentUser !== null ? 'Log Out' : 'Log In'}</Link>
             </div>
