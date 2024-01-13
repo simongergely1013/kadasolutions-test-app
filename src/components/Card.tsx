@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const styles = {
     main: 'w-1/4 h-96 flex flex-col justify-between items-center p-4 border',
@@ -10,18 +11,19 @@ const styles = {
     price: 'flex gap-2',
     descriptionDiv: '',
     description: 'text-sm font-medium',
-    button: 'w-full py-1 rounded-3xl border'
+    link: 'w-full text-center py-1 rounded-3xl border'
 }
 
 interface CardProps {
+    id: number | null;
     image: string;
-    discount: number;
+    discount: number | null;
     title: string;
-    price: number;
+    price: number | null;
     description: string;
 }
 
-const Card = ({image, discount, title, price, description}: CardProps) => {
+const Card = ({id, image, discount, title, price, description}: CardProps) => {
     return(
         <div className={styles.main}>
             <div className={styles.imgContainer}>
@@ -35,7 +37,7 @@ const Card = ({image, discount, title, price, description}: CardProps) => {
             <div className={styles.descriptionDiv}>
                 <p className={styles.description}>{description}</p>
             </div>
-            <button className={styles.button}>See details</button>
+            <Link href={`/products/${id}`} className={styles.link}>See details</Link>
         </div>
     )
 }

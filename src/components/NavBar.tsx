@@ -5,7 +5,9 @@ import React, {useState, useEffect} from "react";
 import Link from "next/link";
 
 const styles = {
-    main: 'w-full h-24 flex items-center gap-6 p-10 border'
+    main: 'w-full h-24 flex items-center justify-between font-semibold p-10 border',
+    leftSide: 'flex gap-12',
+    rightSide: 'pr-10'
 };
 
 const NavBar = () => {
@@ -25,10 +27,14 @@ const NavBar = () => {
     }, [])
     return(
         <div className={styles.main}>
+            <div className={styles.leftSide}>
             <Link href={"/"}>Home</Link>
             <Link href={"/signup"}>Sign Up</Link>
             <Link href={"/login"}>{currentUser !== null ? 'Log Out' : 'Log In'}</Link>
-            <Link href={"/cart"}>Cart</Link>
+            </div>
+            <div className={styles.rightSide}>
+             <Link href={"/cart"}>Cart</Link>
+            </div>
         </div>    
     )
 }
