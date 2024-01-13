@@ -2,16 +2,16 @@ import React from "react";
 import Link from "next/link";
 
 const styles = {
-    main: 'w-1/4 h-96 flex flex-col justify-between items-center p-4 border',
+    main: 'w-80 h-96 flex flex-col justify-between items-center p-4 m-2 border rounded-lg',
     imgContainer: 'h-1/2 relative',
     image: 'w-72 h-44',
-    discount: 'absolute bg-[#6100FF] text-center text-sm font-semibold leading-normal py-1 px-3 rounded-3xl right-2 top-2',
+    discount: 'absolute bg-[#6100FF] text-white text-center text-sm font-semibold leading-normal py-1 px-3 rounded-3xl right-2 top-2',
     titleAndPriceDiv: 'w-full flex justify-between items-center font-semibold leading-normal text-xl',
     title: '',
     price: 'flex gap-2',
     descriptionDiv: '',
     description: 'text-sm font-medium',
-    link: 'w-full text-center py-1 rounded-3xl border'
+    link: 'w-full bg-black text-white text-center py-1 rounded-3xl border'
 }
 
 interface CardProps {

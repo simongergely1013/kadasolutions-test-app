@@ -5,26 +5,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
 import { fetchSingleProductData } from "@/store/singleProduct";
 import { addToCart } from "@/store/cart";
+import { renderStars } from './renderStars';
 import React from "react";
 import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
-    main: 'flex min-h-screen flex-col justify-center items-center p-16 border',
-    header: 'text-5xl mb-12 border',
-    productWrapper: 'w-3/4 h-[480px] flex justify-center border',
-    imageContainer: 'w-1/2 h-full flex justify-center items-center border',
+    main: 'flex min-h-screen flex-col justify-center items-center p-16',
+    header: 'text-5xl mb-12',
+    productWrapper: 'w-3/4 h-[480px] flex justify-center',
+    imageContainer: 'w-1/2 h-full flex justify-center items-center',
     image: 'w-full h-full',
-    infoContainer: 'w-1/2 h-full flex flex-col justify-between px-12 border',
-    rowTop: 'w-full flex justify-between items-center border',
-    rowMiddle: 'w-full flex flex-col border',
-    rowBottom: 'w-full flex justify-between items-center border',
-    title: 'text-4xl font-semibold border',
-    rating: 'text-2xl font-semibold border',
-    description: 'text-2xl font-medium border',
-    details: 'flex flex-col gap-2 text-2xl font-light border',
-    discount: 'w-28 h-12 flex justify-center items-center bg-[#6100FF] text-sm font-semibold rounded-3xl',
-    price: 'text-[64px] font-semibold border',
-    button: 'w-64 h-16 text-lg font-semibold rounded-3xl border'
+    infoContainer: 'w-1/2 h-full flex flex-col justify-between px-14',
+    rowTop: 'w-full flex justify-between items-center',
+    rowMiddle: 'w-full flex flex-col',
+    rowBottom: 'w-full flex justify-between items-center',
+    title: 'text-4xl font-semibold',
+    rating: 'flex items-center justify-center text-2xl font-semibold',
+    starContainer: 'flex justify-center items-center gap-1 mr-2',
+    description: 'text-2xl font-medium',
+    details: 'flex flex-col gap-2 text-2xl font-light',
+    discount: 'w-28 h-12 flex justify-center items-center bg-[#6100FF] text-white text-xl font-semibold rounded-3xl',
+    price: 'text-[64px] font-semibold',
+    button: 'w-64 h-16 bg-black text-white text-[28px] font-semibold rounded-[30px] border',
 }
 
 const SingleProduct = ({params}: {params: {id: number}}) => {
@@ -59,7 +61,8 @@ const SingleProduct = ({params}: {params: {id: number}}) => {
                 <div className={styles.infoContainer}>
                     <div className={styles.rowTop}>
                         <h1 className={styles.title}>{product.title}</h1>
-                        <div className={styles.rating}>{product.rating}</div>
+                        <div className={styles.rating}>
+                        <div className={styles.starContainer}>{renderStars(product.rating)}</div>{product.rating}</div>
                     </div>
                         <p className={styles.description}>{product.description}</p>
                         <div className={styles.details}>
