@@ -1,24 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { Product, ProductsState } from './products.interfaces';
 import axios from 'axios';
-
-interface Products {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    category: string;
-    thumbnail: string;
-    images: Array<string>;
-}
-interface ProductsState {
-    products: Array<Products>;
-    isLoading: boolean;
-    isError: boolean;
-}
 
 const initialState: ProductsState = {
     products: [],
@@ -43,7 +25,7 @@ const products = createSlice({
             state.isLoading = true;
             state.isError = false;
         });
-        builder.addCase(fetchProductsData.fulfilled, (state, action: PayloadAction<Array<Products>>) => {
+        builder.addCase(fetchProductsData.fulfilled, (state, action: PayloadAction<Array<Product>>) => {
             state.isLoading = false;
             state.isError = false;
             state.products = action.payload;
