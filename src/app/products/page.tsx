@@ -5,10 +5,9 @@ import { RootState, AppDispatch } from '@/store';
 import { fetchProductsData } from '@/store/products';
 import React from "react";
 import Card from "@/components/Card";
-import { it } from 'node:test';
 
 const styles = {
-    main: 'flex min-h-screen flex-col justify-center items-center p-24',
+    main: 'flex min-h-screen flex-col justify-center items-center p-16',
     header: 'text-5xl mb-12',
     productsWrapper: 'w-9/12 flex flex-wrap justify-center items-center border'
 }
@@ -25,7 +24,7 @@ const Products = () => {
         <h1 className={styles.header}>See Products</h1>
         <div className={styles.productsWrapper}>
         {products.length > 0 &&
-             products.map((item, index) => (
+             products.map((item) => (
                <Card
                id={item.id}
                key={item.id} 

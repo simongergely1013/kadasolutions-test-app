@@ -1,12 +1,16 @@
 'use client'
 import {auth} from '../firebase';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { toast, ToastContainer } from 'react-toastify';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { clearCart } from '@/store/cart';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store';
 import React, {useState, useEffect} from "react";
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
-    wrapper: 'border w-full min-h-screen flex justify-center',
+    wrapper: 'border w-full min-h-screen flex justify-center pt-4',
     form: 'border w-1/2 flex flex-col items-center',
     header: 'text-2xl p-6',
     inputDiv: 'w-1/3 flex flex-col gap-4 text-black mb-4',
@@ -19,14 +23,15 @@ const LogIn = () => {
     const [password, setPassword] = useState('')
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) =>{
             console.log(userCredentials);
-            toast('Logged in successfully!', {
-                position: "top-right",
+            toast.success('Logged in successfully!', {
+                position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -34,8 +39,8 @@ const LogIn = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
+                transition: Bounce,
                 });
-                router.push('/');
         } )
         .catch(error => console.log(error))
     }
@@ -44,8 +49,8 @@ const LogIn = () => {
         signOut(auth)
         .then(() =>{
             console.log('Logged out successfully')
-            toast('Logged out successfully', {
-                position: "top-right",
+            toast.info('Logged out seccessfully!', {
+                position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -53,7 +58,8 @@ const LogIn = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-                });
+                transition: Bounce,
+                }); 
         })
         .catch(error => console.log(error))
       }
@@ -71,12 +77,12 @@ const LogIn = () => {
         }
     }, [])
     return(
+        <>
         <div className={styles.wrapper}>
             {currentUser !== null ? 
-            <div className='border w-1/2 flex flex-col items-center gap-6'>
-             <h1>{`Currently logged in as ${currentUser.email}`}</h1>
+            <div className='w-1/2 flex flex-col items-center gap-4'>
+             <h1 className={styles.header}>{`Logged in as ${currentUser.email}`}</h1>
              <button className={styles.button} onClick={handleLogOut}>Log out</button>
-             <ToastContainer/>
             </div>
             :
             <form className={styles.form} onSubmit={handleSubmit}>
@@ -86,10 +92,11 @@ const LogIn = () => {
             <input className={styles.input} type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
             <button className={styles.button} type="submit" onClick={handleSubmit}>Log In</button>
-            <ToastContainer/>
         </form>
         }
         </div>
+        <ToastContainer/>
+        </>
     )
 }
 
