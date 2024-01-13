@@ -1,28 +1,45 @@
 'use client';
-import { useEffect } from 'react';
+import {useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { RootState, AppDispatch } from '@/store';
 import { fetchProductsData } from '@/store/products';
 import React from "react";
 import Card from "@/components/Card";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 
 const styles = {
     main: 'flex min-h-screen flex-col justify-center items-center p-16',
     header: 'text-5xl mb-12',
-    productsWrapper: 'w-9/12 flex flex-wrap justify-center items-center border'
+    productsWrapper: 'w-9/12 items-center border',
 }
 
 const Products = () => {
-    const {products} = useSelector((state: RootState) => state.products);
+    const [limit, setLimit] = useState(10);
+    const {products, hasMore} = useSelector((state: RootState) => state.products);
      const dispatch = useDispatch<AppDispatch>();
 
+const handleNext = () => {
+    setTimeout(() => {
+        setLimit(limit + 10);
+    }, 1500)
+}
+
   useEffect(() => {
-    dispatch(fetchProductsData())
-  }, [])
+    dispatch(fetchProductsData(limit))
+  }, [limit])
     return(
         <div className={styles.main}>
         <h1 className={styles.header}>See Products</h1>
-        <div className={styles.productsWrapper}>
+        <div id='scrollableDiv' className={styles.productsWrapper}>
+            <InfiniteScroll
+                dataLength={products.length}
+                next={handleNext}
+                hasMore={hasMore}
+                loader={<h2>Loading...</h2>}
+                endMessage={<h2>No more products left</h2>}
+                className='flex flex-wrap'
+            >
         {products.length > 0 &&
              products.map((item) => (
                <Card
@@ -35,6 +52,7 @@ const Products = () => {
                description={item.description}
                />
              ))}
+             </InfiniteScroll>
             </div>
         </div>
     )
