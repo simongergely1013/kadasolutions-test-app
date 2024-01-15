@@ -22,7 +22,7 @@ const products = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchProductsData.pending, (state, action) => {
+        builder.addCase(fetchProductsData.pending, (state) => {
             state.isLoading = true;
             state.isError = false;
             state.hasMore = true;
@@ -33,7 +33,7 @@ const products = createSlice({
             state.products = action.payload;
             state.hasMore = true;
         });
-        builder.addCase(fetchProductsData.rejected, (state, action) => {
+        builder.addCase(fetchProductsData.rejected, (state) => {
             state.isError = true;
             state.isLoading = false;
             state.hasMore = false;

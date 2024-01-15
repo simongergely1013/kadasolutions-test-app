@@ -26,7 +26,7 @@ const handleNext = () => {
 }
 
   useEffect(() => {
-    dispatch(fetchProductsData(limit))
+        dispatch(fetchProductsData(limit))
   }, [limit])
     return(
         <div className={styles.main}>
