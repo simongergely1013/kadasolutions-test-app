@@ -2,6 +2,7 @@
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../firebase";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 import { RootState, AppDispatch } from "@/store";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { clearCart } from "@/store/cart";
@@ -21,12 +22,13 @@ const Cart = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const {cart} = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch<AppDispatch>();
+    const router = useRouter();
 
     const handlePurchase = () => {
         if(currentUser !== null){
             toast.success('Purchased items successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -38,7 +40,7 @@ const Cart = () => {
         } else {
             toast.error('Log in or create an account', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -47,6 +49,9 @@ const Cart = () => {
                 theme: "light",
                 transition: Bounce,
                 });
+                setTimeout(() => {
+                router.push('/login');
+                }, 3500)
         }
     }
 
@@ -54,7 +59,7 @@ const Cart = () => {
         dispatch(clearCart());
         toast.info('Cart cleared.', {
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
