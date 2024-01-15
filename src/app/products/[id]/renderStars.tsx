@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 const styles = {
     starContainer: 'flex justify-center items-center gap-1 mr-2',
     fillPurple: 'fill-[#6100FF]',
-    fillGray: 'fill-gray',
+    fillGray: 'fill-slate-300',
 }
 
 export const renderStars = (rating: number | null) => {
