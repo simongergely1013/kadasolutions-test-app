@@ -3,7 +3,6 @@ import {auth} from '../firebase';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { clearCart } from '@/store/cart';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import React, {useState, useEffect} from "react";
@@ -23,7 +22,6 @@ const LogIn = () => {
     const [password, setPassword] = useState('')
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const router = useRouter();
-    const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -32,7 +30,7 @@ const LogIn = () => {
             console.log(userCredentials);
             toast.success('Logged in successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -45,13 +43,13 @@ const LogIn = () => {
             setPassword('');    
             setTimeout(() => {
                 router.push('/products');
-            }, 5500);    
+            }, 3500);    
         } )
         .catch(error => {
             console.log(error)
             toast.error('Invalid email or password', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -71,7 +69,7 @@ const LogIn = () => {
             console.log('Logged out successfully')
             toast.info('Logged out seccessfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -85,7 +83,7 @@ const LogIn = () => {
             console.log(error)
             toast.error('Something went wrong', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

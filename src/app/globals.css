@@ -16,6 +16,10 @@
   }
 }
 
+* {
+  border: 1px solid;
+}
+
 body {
   max-width: 1440px;
   margin: 0 auto;

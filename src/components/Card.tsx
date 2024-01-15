@@ -11,7 +11,7 @@ const styles = {
     price: 'flex gap-2',
     descriptionDiv: '',
     description: 'text-sm font-medium',
-    link: 'w-full bg-black text-white text-center py-1 rounded-3xl border'
+    link: 'w-full bg-black text-white text-center py-3 rounded-3xl border'
 }
 
 interface CardProps {

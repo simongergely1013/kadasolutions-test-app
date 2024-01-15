@@ -26,7 +26,7 @@ const SignUp = () => {
             console.log(userCredentials)
             toast('Signed up successfully!', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -36,13 +36,13 @@ const SignUp = () => {
                 });
             setTimeout(() => {
                 router.push('/login');
-            }, 5500);
+            }, 3500);
         })
         .catch(error =>{
             console.log(error)
             toast.error('Invalid email or password', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
