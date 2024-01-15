@@ -19,6 +19,8 @@ const styles = {
     image: 'w-full h-full',
     chevronLeft: 'absolute w-10 h-10 -left-14',
     chevronRight: 'absolute w-10 h-10 -right-14',
+    dotsContainer: 'absolute flex justify-center gap-4 -bottom-14',
+    dot: 'w-4 h-4 rounded-full cursor-pointer',
     infoContainer: 'w-1/2 h-full flex flex-col justify-between px-2',
     rowTop: 'w-full flex justify-between items-center',
     rowMiddle: 'w-full flex flex-col',
@@ -65,6 +67,10 @@ const SingleProduct = ({params}: {params: {id: number}}) => {
         setCurrentIndex(newIndex);
     }
 
+    const goToSlide = (slideIndex: number) => {
+        setCurrentIndex(slideIndex);
+    }
+
     useEffect(() => {
         dispatch(fetchSingleProductData(params.id));
     }, [])
@@ -76,6 +82,11 @@ const SingleProduct = ({params}: {params: {id: number}}) => {
                     <FaChevronLeft className={styles.chevronLeft} onClick={goToPrevious}/>
                     <img className={styles.image} src={images[currentIndex]}/>
                     <FaChevronRight className={styles.chevronRight} onClick={goToNext}/>
+                    <div className={styles.dotsContainer}>
+                        {images.map((img, index) => (
+                            <div className={`${styles.dot} ${currentIndex === index ? 'bg-[#6100FF]' : 'bg-slate-300'}`} key={index} onClick={() => goToSlide(index)}/>
+                        ))}
+                    </div>
                 </div>
                 <div className={styles.infoContainer}>
                     <div className={styles.rowTop}>
