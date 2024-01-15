@@ -1,20 +1,24 @@
 'use client';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
-import { useEffect } from "react";
+import {useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
 import { fetchSingleProductData } from "@/store/singleProduct";
 import { addToCart } from "@/store/cart";
 import { renderStars } from './renderStars';
+import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa6";
 import React from "react";
 import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
     main: 'min-h-screen flex flex-col justify-center items-center p-16',
     header: 'text-5xl mb-12',
-    productWrapper: 'w-3/4 h-[480px] flex justify-center',
-    imageContainer: 'w-1/2 h-full flex justify-center items-center',
+    productWrapper: 'w-3/4 h-[480px] flex justify-center gap-20',
+    imageContainer: 'relative w-1/2 h-full flex justify-center items-center rounded-lg',
     image: 'w-full h-full',
+    chevronLeft: 'absolute w-10 h-10 -left-14',
+    chevronRight: 'absolute w-10 h-10 -right-14',
     infoContainer: 'w-1/2 h-full flex flex-col justify-between px-2',
     rowTop: 'w-full flex justify-between items-center',
     rowMiddle: 'w-full flex flex-col',
@@ -31,6 +35,8 @@ const styles = {
 
 const SingleProduct = ({params}: {params: {id: number}}) => {
     const {product} = useSelector((state: RootState) => state.singleProduct);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const images = product.images;
     const dispatch = useDispatch<AppDispatch>();
 
     const handleAddToCart = () => {
@@ -48,6 +54,17 @@ const SingleProduct = ({params}: {params: {id: number}}) => {
                 });
     }
 
+    const goToPrevious = () => {
+        const isFirstSlide = currentIndex === 0;
+        const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndex);
+    }
+    const goToNext = () => {
+        const isLastSlide = currentIndex === images.length - 1;
+        const newIndex = isLastSlide ? 0 : currentIndex + 1;
+        setCurrentIndex(newIndex);
+    }
+
     useEffect(() => {
         dispatch(fetchSingleProductData(params.id));
     }, [])
@@ -56,7 +73,9 @@ const SingleProduct = ({params}: {params: {id: number}}) => {
         <div className={styles.main}>
             <div className={styles.productWrapper}>
                 <div className={styles.imageContainer}>
-                    <img className={styles.image} src={product.images[0]}/>
+                    <FaChevronLeft className={styles.chevronLeft} onClick={goToPrevious}/>
+                    <img className={styles.image} src={images[currentIndex]}/>
+                    <FaChevronRight className={styles.chevronRight} onClick={goToNext}/>
                 </div>
                 <div className={styles.infoContainer}>
                     <div className={styles.rowTop}>
